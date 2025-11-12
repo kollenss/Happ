@@ -3,7 +3,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(()=>{});
 }
 
-// Schema för veckan – morgon / em (NAC) / kväll
+// Schema för veckan – morgon / em (NAC) / kväll + träning
 const schedule = [
   {
     day: "Sön",
@@ -13,7 +13,7 @@ const schedule = [
       ["Tyrosin 500 mg",1],
       ["Rhodiola",1],
       ["Omega-3",2],
-      ["D3 (5 kapslar)",5],
+      ["D3",5],
       ["Vitamin K2",1]
     ],
     afternoon: [
@@ -22,6 +22,9 @@ const schedule = [
     evening: [
       ["Magnesium Bisglycinat",1],
       ["Zink + Selen",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   },
   {
@@ -38,6 +41,9 @@ const schedule = [
     ],
     evening: [
       ["Magnesium Bisglycinat",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   },
   {
@@ -49,7 +55,7 @@ const schedule = [
       ["Rhodiola",1],
       ["B-Complex",1],
       ["Omega-3",2],
-      ["D3 (5 kapslar)",5],
+      ["D3",5],
       ["Vitamin K2",1]
     ],
     afternoon: [
@@ -58,6 +64,9 @@ const schedule = [
     evening: [
       ["Magnesium Bisglycinat",1],
       ["Zink + Selen",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   },
   {
@@ -76,6 +85,9 @@ const schedule = [
     evening: [
       ["Magnesium Bisglycinat",1],
       ["Zink + Selen",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   },
   {
@@ -87,7 +99,7 @@ const schedule = [
       ["Rhodiola",1],
       ["B-Complex",1],
       ["Omega-3",2],
-      ["D3 (5 kapslar)",5],
+      ["D3",5],
       ["Vitamin K2",1]
     ],
     afternoon: [
@@ -96,6 +108,9 @@ const schedule = [
     evening: [
       ["Magnesium Bisglycinat",1],
       ["Zink + Selen",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   },
   {
@@ -114,6 +129,9 @@ const schedule = [
     evening: [
       ["Magnesium Bisglycinat",1],
       ["Zink + Selen",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   },
   {
@@ -123,7 +141,7 @@ const schedule = [
       ["Sertralin",1],
       ["B-Complex",1],
       ["Omega-3",2],
-      ["D3 (5 kapslar)",5],
+      ["D3",5],
       ["Vitamin K2",1]
     ],
     afternoon: [
@@ -132,6 +150,9 @@ const schedule = [
     evening: [
       ["Magnesium Bisglycinat",1],
       ["Zink + Selen",1]
+    ],
+    training: [
+      ["Träningspass zon 2–3 (promenad 30–40 min eller löpning 3–5 km)",1]
     ]
   }
 ];
@@ -147,7 +168,9 @@ function createSlot(dayLabel, partKey, labelText, items, badgeClass) {
   const sum = document.createElement('summary');
   const badgeText =
     partKey === 'morning' ? 'Morgon' :
-    partKey === 'afternoon' ? 'Em' : 'Kväll';
+    partKey === 'afternoon' ? 'Em' :
+    partKey === 'evening' ? 'Kväll' :
+    'Träning';
   sum.innerHTML = `<strong>${labelText}</strong> <span class="badge ${badgeClass}">${badgeText}</span>`;
   det.appendChild(sum);
 
@@ -169,7 +192,7 @@ function createSlot(dayLabel, partKey, labelText, items, badgeClass) {
     });
 
     const name = document.createElement('span');
-    name.textContent = `${it[0]} (${it[1]} kaps)`;
+    name.textContent = `${it[0]}`;
 
     lab.appendChild(cb);
     lab.appendChild(name);
@@ -211,6 +234,11 @@ function render() {
     card.appendChild(
       createSlot(dayObj.day, "evening", "Kväll ~21:00", dayObj.evening, "badge-kvall")
     );
+    if (dayObj.training) {
+      card.appendChild(
+        createSlot(dayObj.day, "training", "Träning – zon 2–3", dayObj.training, "badge-traning")
+      );
+    }
 
     root.appendChild(card);
   });
@@ -230,7 +258,7 @@ document.getElementById('btn-clear-today').addEventListener('click', () => {
   const today = days[new Date().getDay()];
   if (!confirm(`Rensa bockningar för ${today}?`)) return;
 
-  ["morning","afternoon","evening"].forEach(part => {
+  ["morning","afternoon","evening","training"].forEach(part => {
     for (let i = 0; i < 20; i++) {
       const key = storageKey(today, part, i);
       if (localStorage.getItem(key) !== null) {
