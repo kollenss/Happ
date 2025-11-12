@@ -1,1 +1,120 @@
-<html><body><h1>Hälsoplan App</h1><p>NAC kl 19:00</p></body></html>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <title>Min Hälsoplan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <style>
+    :root { --pad: 14px; --radius: 16px; --shadow: 0 6px 18px rgba(0,0,0,.08); }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: -apple-system, system-ui, "SF Pro Text", Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #f7f7fb;
+      color: #0b0c0d;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(180deg,#ffffff 0%, #ffffffcc 70%, #ffffff00 100%);
+      backdrop-filter: saturate(180%) blur(8px);
+      padding: calc(env(safe-area-inset-top) + 10px) var(--pad) 10px;
+      z-index: 10;
+    }
+    h1 { margin: 0; font-size: 22px; font-weight: 700; }
+    .sub { font-size: 13px; color: #5b5f67; margin-top: 4px; }
+    .container { padding: 10px; max-width: 760px; margin: 0 auto; }
+    .card {
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--pad);
+      margin: 12px 0;
+    }
+    .day { font-weight: 700; font-size: 16px; }
+    .badge {
+      display:inline-block;
+      font-size:11px;
+      padding:4px 8px;
+      border-radius:999px;
+      margin-left:6px;
+    }
+    .badge-morgon { background:#e6f4ea; }
+    .badge-em { background:#fde68a; }
+    .badge-kvall { background:#e8f0fe; }
+    .muted { color:#6b7280; font-size:12px; margin-top:2px; }
+    details {
+      border-radius: 12px;
+      border: 1px solid #eef0f4;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 12px;
+      background: #fafbff;
+      font-size: 14px;
+    }
+    summary::-webkit-details-marker { display:none; }
+    .list { padding: 8px 12px 12px; }
+    .item {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 0;
+      border-bottom:1px dashed #eef0f4;
+    }
+    .item:last-child { border-bottom:none; }
+    label {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:15px;
+    }
+    .caps { font-size:12px; color:#5b5f67; }
+    input[type="checkbox"] {
+      width:22px;
+      height:22px;
+      accent-color:#0ea5e9;
+    }
+    .btns { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+    button {
+      border:0;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+    .btn-primary { background:#0ea5e9; color:#fff; }
+    .btn-ghost { background:#fff; color:#0b0c0d; }
+    .hint { font-size:12px; color:#61656d; margin-top:6px; }
+    .footer { height: calc(env(safe-area-inset-bottom) + 12px); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Min Hälsoplan <span class="badge">vinter</span></h1>
+    <div class="sub">Morgon • NAC kl 19:00 • Kväll • D3+K2 vissa dagar • bockningar sparas i telefonen</div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <div class="btns">
+        <button class="btn-ghost" id="btn-today">Hoppa till idag</button>
+        <button class="btn-ghost" id="btn-clear-today">Rensa idag</button>
+        <button class="btn-primary" id="btn-reset">Veckoreset</button>
+      </div>
+      <div class="hint">
+        Tips: öppna i Safari → <em>Dela</em> → <em>Lägg till på hemskärmen</em> för att få den som app.
+      </div>
+    </div>
+
+    <div id="days"></div>
+    <div class="footer"></div>
+  </div>
