@@ -7,7 +7,7 @@
   --blue-soft: #6366f1;
   --orange: #f97316;
   --bg-dark: #111827;
-  --bg-dark-soft: #111827;
+  --bg-dark-soft: #020617;
   --text-muted: #9ca3af;
 }
 
@@ -40,7 +40,7 @@ body {
 .app-header {
   padding: calc(env(safe-area-inset-top) + 12px) 18px 10px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -54,7 +54,7 @@ body {
   font-size: 12px;
   color: var(--text-muted);
   margin-top: 4px;
-  max-width: 280px;
+  max-width: 260px;
 }
 
 .app-avatar {
@@ -68,7 +68,7 @@ body {
 /* Calendar panel */
 
 .calendar-panel {
-  padding: 6px 18px 18px;
+  padding: 6px 18px 10px;
   color: #e5e7eb;
 }
 
@@ -76,7 +76,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .month-label {
@@ -91,15 +91,17 @@ body {
 
 .nav-arrow {
   border: 0;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 999px;
-  background: rgba(15,23,42,0.9);
+  background: rgba(15,23,42,0.95);
   color: #f9fafb;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.35);
 }
+
+/* weekday row */
 
 .calendar-weekdays {
   display: grid;
@@ -111,37 +113,36 @@ body {
   color: #6b7280;
 }
 
+/* calendar days */
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  padding: 10px 4px 0;
+  row-gap: 8px;
+  padding: 8px 0 12px;
 }
 
 .calendar-day {
   position: relative;
-  width: 100%;
-  padding-top: 100%; /* square */
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: none;
   background: transparent;
-  color: #e5e7eb;
-  font-size: 13px;
+  padding: 0;
   cursor: pointer;
 }
 
 .calendar-day-inner {
-  position: absolute;
-  inset: 0;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: inherit;
+  font-size: 13px;
+  color: #e5e7eb;
 }
 
-.calendar-day.other-month {
+.calendar-day.other-month .calendar-day-inner {
   color: #4b5563;
 }
 
@@ -157,7 +158,9 @@ body {
 
 .calendar-day .dot {
   position: absolute;
-  bottom: 4px;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 4px;
   height: 4px;
   border-radius: 999px;
