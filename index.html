@@ -11,25 +11,55 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Min Hälsoplan <span class="badge">vinter</span></h1>
-    <div class="sub">Morgon • NAC kl 19:00 • Kväll • D3+K2 vissa dagar • Träning • bockningar sparas i telefonen</div>
-  </header>
+  <div class="screen">
+    <header class="app-header">
+      <div class="app-title">Min Hälsoplan</div>
+      <div class="app-subtitle">Morgon • NAC kl 19:00 • Kväll • D3+K2 • Träning</div>
+      <div class="app-avatar"></div>
+    </header>
 
-  <div class="container">
-    <div class="card">
-      <div class="btns">
-        <button class="btn-ghost" id="btn-today">Hoppa till idag</button>
-        <button class="btn-ghost" id="btn-clear-today">Rensa idag</button>
-        <button class="btn-primary" id="btn-reset">Veckoreset</button>
+    <section class="calendar-panel" id="calendar-panel">
+      <div class="calendar-header">
+        <div class="month-label" id="month-label">Feb 2020</div>
+        <div class="month-arrows">
+          <button class="nav-arrow" id="prev-month" aria-label="Föregående månad">‹</button>
+          <button class="nav-arrow" id="next-month" aria-label="Nästa månad">›</button>
+        </div>
       </div>
-      <div class="hint">
-        Tips: öppna i Safari → <em>Dela</em> → <em>Lägg till på hemskärmen</em> för att få den som app.
+      <div class="calendar-weekdays">
+        <span>S</span><span>M</span><span>T</span><span>O</span><span>T</span><span>F</span><span>L</span>
       </div>
-    </div>
+      <div class="calendar-grid" id="calendar-grid">
+        <!-- dagar fylls i via JS -->
+      </div>
+    </section>
 
-    <div id="days"></div>
-    <div class="footer"></div>
+    <section class="day-sheet" id="day-sheet">
+      <div class="sheet-handle"></div>
+      <div class="day-sheet-inner">
+        <div class="day-sheet-header">
+          <div class="day-sheet-date" id="day-title">Sön 5 feb</div>
+          <div class="day-sheet-sub" id="day-subtitle">D3 + K2-dag • zon 2–3</div>
+        </div>
+
+        <div class="card card-actions">
+          <div class="btns">
+            <button class="btn-ghost" id="btn-today">Idag</button>
+            <button class="btn-ghost" id="btn-clear-today">Rensa dag</button>
+            <button class="btn-primary" id="btn-reset">Veckoreset</button>
+          </div>
+          <div class="hint">
+            Tips: öppna i Safari → <em>Dela</em> → <em>Lägg till på hemskärmen</em> för att få den som app.
+          </div>
+        </div>
+
+        <div id="day-content">
+          <!-- dagens kort fylls i via JS -->
+        </div>
+
+        <div class="footer-space"></div>
+      </div>
+    </section>
   </div>
 
   <script src="app.js"></script>
