@@ -19,9 +19,9 @@ body {
 header {
   position: sticky;
   top: 0;
-  background: linear-gradient(180deg,#ffffff 0%, #ffffffcc 70%, #ffffff00 100%);
-  backdrop-filter: saturate(180%) blur(8px);
-  padding: calc(env(safe-area-inset-top) + 10px) var(--pad) 10px;
+  background: linear-gradient(180deg,#007aff 0%,#0ea5e9 40%, #ffffff00 100%);
+  color: #fff;
+  padding: calc(env(safe-area-inset-top) + 10px) var(--pad) 14px;
   z-index: 10;
 }
 
@@ -33,7 +33,7 @@ h1 {
 
 .sub {
   font-size: 13px;
-  color: #5b5f67;
+  color: #e5f3ff;
   margin-top: 4px;
 }
 
@@ -67,6 +67,7 @@ h1 {
 .badge-morgon { background:#e6f4ea; }
 .badge-em { background:#fde68a; }
 .badge-kvall { background:#e8f0fe; }
+.badge-traning { background:#fee2e2; }
 
 .muted {
   color:#6b7280;
