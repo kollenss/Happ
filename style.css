@@ -26,11 +26,13 @@ body {
   font-family: -apple-system, system-ui, "SF Pro Text", Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   background: radial-gradient(circle at top, #1f2937 0%, #020617 70%);
   color: #f9fafb;
+  /* Viktigt: lås scroll på hela sidan */
+  overflow: hidden;
 }
 
 .screen {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   padding-bottom: env(safe-area-inset-bottom);
   overflow: hidden;
 }
@@ -186,6 +188,9 @@ body {
   border-top-right-radius: 26px;
   box-shadow: var(--shadow-soft);
   padding-bottom: env(safe-area-inset-bottom);
+  /* Viktigt: bara sheeten får scrolla */
+  max-height: calc(100vh - 230px); /* höjd för header + kalender */
+  overflow-y: auto;
 }
 
 .sheet-handle {
